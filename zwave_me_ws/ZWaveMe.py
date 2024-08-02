@@ -213,7 +213,14 @@ class ZWaveMe:
                     uuid = json.loads(dict_data["data"]["body"])["data"]["uuid"]
                     if uuid and uuid is not None:
                         self.uuid = uuid
-
+                        
+                elif dict_data["type"] == "me.z-wave.devices.isFailed":
+                    device = prepare_devices(
+                        [
+                            dict_data["data"],
+                        ]
+                    )[0]
+                
                 elif dict_data["type"] == "me.z-wave.devices.remove":
                     if self.on_device_remove:
                         self.on_device_remove(dict_data["data"])
